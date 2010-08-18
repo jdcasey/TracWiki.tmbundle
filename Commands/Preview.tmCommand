@@ -8,18 +8,16 @@
 	<string>#!/usr/bin/env ruby -rjcode -Ku
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/trac-wiki.rb"
 
-TracWiki.new.save_new</string>
-	<key>fallbackInput</key>
-	<string>document</string>
+puts TracWiki.new.preview</string>
 	<key>input</key>
 	<string>document</string>
 	<key>keyEquivalent</key>
-	<string>^~S</string>
+	<string>^~p</string>
 	<key>name</key>
-	<string>Save New...</string>
+	<string>Preview</string>
 	<key>output</key>
-	<string>showAsTooltip</string>
+	<string>showAsHTML</string>
 	<key>uuid</key>
-	<string>1800B0C8-5447-49E1-B825-960AFE425E21</string>
+	<string>8F75A4B4-35FA-44F7-926C-739A7598AC5E</string>
 </dict>
 </plist>

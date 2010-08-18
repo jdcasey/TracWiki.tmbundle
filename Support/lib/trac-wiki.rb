@@ -15,8 +15,8 @@ PROXY_PORT = ENV['TRAC_WIKI_PROXY_PORT']
 require 'rubygems'
 require 'trac4r'
 require 'ftools'
-# require 'open3'
 require SUPPORT + '/lib/ui'
+require SUPPORT + '/lib/tm/htmloutput'
 
 class Net::HTTP
   alias_method :old_initialize, :initialize
@@ -55,14 +55,7 @@ class TracWiki
   end
   
   def open()
-    page = STDIN.gets
-    page = TextMate::UI.request_string( {:title=>'Enter Page Name', :prompt=>"What page do you want to open?", :default=>"WikiStart"}) unless page
-    
-    if ( !page || page == '?' )
-      listing = @trac.wiki.list
-      pg_idx = TextMate::UI.menu( listing )
-      page = listing[pg_idx]
-    end
+    page = _read_select_page
     
     if ( page )
       fname = "/tmp/#{page}#{RAW}"
@@ -129,5 +122,48 @@ class TracWiki
     puts message
   end
     
+  def show
+    page = _read_select_page( 'display' )
+    
+    begin
+      output = @trac.wiki.get_html( page ) if page
+    rescue
+      output = nil
+    end
+    
+    output = TextMate::HTMLOutput.show(:title => "#{page} Not Found!") do |io|
+      io << "Cannot find page: #{page}"
+    end unless output
+    
+    output
+  end
+  
+  def preview
+    content = STDIN.read
+    
+    begin
+      output = @trac.wiki.raw_to_html( content ) if content
+    rescue
+      output = nil
+    end
+    
+    output = TextMate::HTMLOutput.show(:title => "Nothing to do!") do |io|
+      io << "<h1>Nothing to preview!</h1>"
+    end unless output
+    
+    output
+  end
+  
+  def _read_select_page( action = 'open' )
+    page = TextMate::UI.request_string( {:title=>'Enter Page Name', :prompt=>"What page do you want to #{action}?", :default=>"WikiStart"}) unless page
+    
+    if ( !page || page == '?' )
+      listing = @trac.wiki.list
+      pg_idx = TextMate::UI.menu( listing )
+      page = listing[pg_idx]
+    end
+    
+    page
+  end
 
 end

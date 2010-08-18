@@ -8,11 +8,13 @@
 	<string>#!/usr/bin/env ruby -rjcode -Ku
 require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/trac-wiki.rb"
 
-TracWiki.new.open()</string>
+TracWiki.new.open</string>
 	<key>fallbackInput</key>
 	<string>word</string>
 	<key>input</key>
-	<string>selection</string>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>^~o</string>
 	<key>name</key>
 	<string>Open Page</string>
 	<key>output</key>
