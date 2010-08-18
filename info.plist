@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>TracWiki</string>
+	<key>ordering</key>
+	<array>
+		<string>9B9D4F76-D4C4-4C5D-84C6-638F8C73C426</string>
+		<string>35564AEE-D0E5-4493-8E44-68F9CA976739</string>
+		<string>EA4CB51A-5356-4E38-A723-E1FC3C406E00</string>
+		<string>1800B0C8-5447-49E1-B825-960AFE425E21</string>
+	</array>
+	<key>uuid</key>
+	<string>B988D08A-F2FB-43E3-ACBE-91B923DF4F14</string>
+</dict>
+</plist>

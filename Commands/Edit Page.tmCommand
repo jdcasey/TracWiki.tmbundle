@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby -rjcode -Ku
+require "#{ENV['TM_BUNDLE_SUPPORT']}/lib/trac-wiki.rb"
+
+TracWiki.new.open()</string>
+	<key>fallbackInput</key>
+	<string>word</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>name</key>
+	<string>Open Page</string>
+	<key>output</key>
+	<string>discard</string>
+	<key>uuid</key>
+	<string>35564AEE-D0E5-4493-8E44-68F9CA976739</string>
+</dict>
+</plist>
