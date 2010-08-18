@@ -15,6 +15,7 @@ PROXY_PORT = ENV['TRAC_WIKI_PROXY_PORT']
 require 'rubygems'
 require 'trac4r'
 require 'ftools'
+require 'uri'
 require SUPPORT + '/lib/ui'
 require SUPPORT + '/lib/tm/htmloutput'
 
@@ -72,7 +73,7 @@ class TracWiki
       File.open( fname, 'w' ) {|file| file.puts content}
       File.open( orig_fname, 'w' ) {|file| file.puts content}
 
-      system( "mate -r #{fname}" )
+      `open txmt://open?url=file://#{URI.escape(fname)}`
 
       puts "Opened page #{page}"
     else

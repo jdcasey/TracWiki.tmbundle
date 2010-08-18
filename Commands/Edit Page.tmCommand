@@ -18,7 +18,7 @@ TracWiki.new.open</string>
 	<key>name</key>
 	<string>Open Page</string>
 	<key>output</key>
-	<string>discard</string>
+	<string>showAsTooltip</string>
 	<key>uuid</key>
 	<string>35564AEE-D0E5-4493-8E44-68F9CA976739</string>
 </dict>
