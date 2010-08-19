@@ -82,16 +82,15 @@ class TracWiki
   end
   
   def save( file )
+    page = nil
     if File.exists?( file )
-      page = File.basename( file )
-      page = page[0..(-1 * ( RAW.length + 1 ) )] if page[RAW]
-      page = TextMate::UI.request_string( {:title=>'Save As...', :prompt=>"Wiki page name: ", :default=>page})
+      page = _write_select_page( file )
 
       original_file = "#{file}#{ORIG}"
-
+      
       new_content = File.read( file )
       content = File.read( original_file )
-
+      
       if content != new_content
         @trac.wiki.put( page, new_content )
         message = "Wrote page #{page}"
@@ -109,10 +108,7 @@ class TracWiki
     content = STDIN.read
     
     if ( content )
-      begin
-        page = TextMate::UI.request_string( {:title=>'Save As...', :prompt=>"Wiki page name: "}).chomp
-        page = nil unless page.length > 0
-      end until page
+      page = _write_select_page()
       
       @trac.wiki.put( page, content )
       message = "Created page #{page}"
@@ -155,10 +151,36 @@ class TracWiki
     output
   end
   
+  def _write_select_page( file = nil )
+    if ( file )
+      page = File.basename( file )
+      page = page[0..(-1 * ( RAW.length + 1 ) )] if page[RAW]
+    else
+      page = ''
+    end
+    
+    begin
+      page = TextMate::UI.request_string( {:title=>'Save As...', :prompt=>"Wiki page name: ", :default=>page}).chomp
+      page = _select_from_menu( page )
+      page = nil unless page.length > 0
+    end until page
+    
+    page
+  end
+  
   def _read_select_page( action = 'open' )
     page = TextMate::UI.request_string( {:title=>'Enter Page Name', :prompt=>"What page do you want to #{action}?", :default=>"WikiStart"}) unless page
+    page = _select_from_menu( page )
     
-    if ( !page || page == '?' )
+    if ( page && page.length < 1 )
+      page = nil
+    end
+    
+    page
+  end
+  
+  def _select_from_menu( page )
+    if ( page == '?' )
       listing = @trac.wiki.list
       pg_idx = TextMate::UI.menu( listing )
       page = listing[pg_idx]
